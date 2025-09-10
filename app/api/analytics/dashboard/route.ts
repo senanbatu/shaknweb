@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
     }, {} as Record<string, number>)
 
     const topPages = Object.entries(pageStats)
-      .sort(([,a], [,b]) => b - a)
+      .sort(([,a], [,b]) => (b as number) - (a as number))
       .slice(0, 10)
       .map(([path, views]) => ({ path, views }))
 
@@ -74,7 +74,7 @@ export async function GET(request: NextRequest) {
       }, {} as Record<string, number>)
 
     const topReferrers = Object.entries(referrerStats)
-      .sort(([,a], [,b]) => b - a)
+      .sort(([,a], [,b]) => (b as number) - (a as number))
       .slice(0, 10)
       .map(([referrer, views]) => ({ referrer, views }))
 
@@ -129,21 +129,21 @@ export async function GET(request: NextRequest) {
       topReferrers,
       deviceStats: Object.entries(deviceStats).map(([device, count]) => ({
         device,
-        count,
-        percentage: Math.round((count / totalViews) * 100)
+        count: count as number,
+        percentage: Math.round(((count as number) / totalViews) * 100)
       })),
       browserStats: Object.entries(browserStats).map(([browser, count]) => ({
         browser,
-        count,
-        percentage: Math.round((count / totalViews) * 100)
+        count: count as number,
+        percentage: Math.round(((count as number) / totalViews) * 100)
       })),
       countryStats: Object.entries(countryStats)
-        .sort(([,a], [,b]) => b - a)
+        .sort(([,a], [,b]) => (b as number) - (a as number))
         .slice(0, 10)
         .map(([country, count]) => ({
           country,
-          count,
-          percentage: Math.round((count / totalViews) * 100)
+          count: count as number,
+          percentage: Math.round(((count as number) / totalViews) * 100)
         }))
     })
 

@@ -14,7 +14,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse user agent for device info
-    const userAgentInfo = body.userAgent ? parseUserAgent(body.userAgent) : {}
+    const userAgentInfo = body.userAgent ? parseUserAgent(body.userAgent) : {
+      device: 'Unknown',
+      browser: 'Unknown',
+      os: 'Unknown'
+    }
     
     // Get client IP
     const ip = getClientIP(request)
@@ -34,9 +38,9 @@ export async function POST(request: NextRequest) {
       ip,
       country: geoInfo.country,
       city: geoInfo.city,
-      device: userAgentInfo.device,
-      browser: userAgentInfo.browser,
-      os: userAgentInfo.os,
+      device: userAgentInfo.device || 'Unknown',
+      browser: userAgentInfo.browser || 'Unknown',
+      os: userAgentInfo.os || 'Unknown',
       sessionId: body.sessionId,
       userId: body.userId,
       duration: body.duration
