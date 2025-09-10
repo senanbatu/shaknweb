@@ -20,8 +20,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setMounted(true)
     const savedLang = localStorage.getItem('language') as Language
-    if (savedLang) {
+    if (savedLang && (savedLang === 'tr' || savedLang === 'en')) {
       setLanguage(savedLang)
+    } else {
+      // Default olarak Türkçe ayarla ve localStorage'a kaydet
+      setLanguage('tr')
+      localStorage.setItem('language', 'tr')
     }
   }, [])
 
